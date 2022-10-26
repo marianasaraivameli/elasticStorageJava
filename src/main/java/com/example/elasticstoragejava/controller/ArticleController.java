@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/article")
@@ -27,4 +28,26 @@ public class ArticleController {
     public ResponseEntity<List<Article>> getAll(){
         return new ResponseEntity<>(service.findAll(), HttpStatus.OK);
     }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<Article> findById(@PathVariable int id){
+        Optional<Article> article = service.findById(id);
+        if(article.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(article.get(), HttpStatus.OK);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<String> delete(@PathVariable int id) {
+        service.delete(id);
+        return new ResponseEntity<>("Artigo removido", HttpStatus.OK);
+    }
+
+    @PutMapping
+    public ResponseEntity<Article> update(@RequestBody Article article) {
+        Article updateArticle = service.update(article);
+        return new ResponseEntity<>(updateArticle, HttpStatus.OK);
+    }
+
 }
