@@ -12,6 +12,7 @@ import java.util.List;
 @Document(indexName = "blog")
 @Getter
 @Setter
+// criando um nome para o documento, podemos criar um @TypeAlias("empregado")
 public class Article {
 
     // somente conseguimos gerar id aleatorio, se estivermos usando String, pois no bd noSQL usamos hash para gerar essas chves automaricas, sendo do tipo String
