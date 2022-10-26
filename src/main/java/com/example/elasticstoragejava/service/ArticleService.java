@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ArticleService implements IArticleService{
@@ -20,6 +21,21 @@ public class ArticleService implements IArticleService{
 
     @Override
     public List<Article> findAll() {
-        return (List<Article>) repository.findAll();
+        return repository.findAll();
+    }
+
+    @Override
+    public Optional<Article> findById(int id) {
+        return repository.findById(id);
+    }
+
+    @Override
+    public void delete(int id) {
+        repository.deleteById(id);
+    }
+
+    @Override
+    public Article update(Article article) {
+        return repository.save(article);
     }
 }
